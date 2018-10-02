@@ -2,6 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import binascii
 import os
 import logging
 try:
@@ -42,7 +43,7 @@ def includeme(config):
         requests.packages.urllib3.contrib.pyopenssl.inject_into_urllib3()
 
     def generate_random_hex_key(length):
-        return os.urandom(length // 2).encode("hex")
+        return binascii.hexlify(os.urandom(length // 2))
 
     settings = config.registry.settings
     import_settings_from_environment_variables(settings)
