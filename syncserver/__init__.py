@@ -41,6 +41,9 @@ def includeme(config):
     if HAS_PYOPENSSL:
         requests.packages.urllib3.contrib.pyopenssl.inject_into_urllib3()
 
+    def generate_random_hex_key(length):
+        return os.urandom(length / 2).encode("hex")
+
     settings = config.registry.settings
     import_settings_from_environment_variables(settings)
 
@@ -53,7 +56,7 @@ def includeme(config):
 
     secret = settings.get("syncserver.secret")
     if secret is None:
-        secret = os.urandom(32).encode("hex")
+        secret = generate_random_hex_key(64)
     sqluri = settings.get("syncserver.sqluri")
     if sqluri is None:
         rootdir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
@@ -141,7 +144,7 @@ def includeme(config):
         # Default to a randomly-generated secret.
         # This setting isn't useful in a self-hosted setup
         # and setting a default avoids scary-sounding warnings.
-        settings["fxa.metrics_uid_secret_key"] = os.urandom(16).encode("hex")
+        settings["fxa.metrics_uid_secret_key"] = generate_random_hex_key(32)
 
     # Include the relevant sub-packages.
     config.scan("syncserver", ignore=["syncserver.wsgi_app"])
