@@ -34,7 +34,7 @@ def includeme(config):
     """Install SyncServer application into the given Pyramid configurator."""
     # Set the umask so that files are created with secure permissions.
     # Necessary for e.g. created-on-demand sqlite database files.
-    os.umask(0077)
+    os.umask(0o077)
 
     # If PyOpenSSL is available, configure requests to use it.
     # This helps improve security on older python versions.
