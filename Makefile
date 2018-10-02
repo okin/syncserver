@@ -1,4 +1,4 @@
-SYSTEMPYTHON = `which python2 python | head -n 1`
+SYSTEMPYTHON = `which python3 python2 python | head -n 1`
 VIRTUALENV = virtualenv --python=$(SYSTEMPYTHON)
 ENV = ./local
 TOOLS := $(addprefix $(ENV)/bin/,flake8 nosetests)
