@@ -4,7 +4,10 @@
 
 import os
 import logging
-from urlparse import urlparse, urlunparse, urljoin
+try:
+    from urlparse import urlparse, urlunparse, urljoin
+except ImportError:
+    from urllib.parse import urlparse, urlunparse, urljoin
 
 import requests
 
