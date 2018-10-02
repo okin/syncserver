@@ -42,7 +42,7 @@ def includeme(config):
         requests.packages.urllib3.contrib.pyopenssl.inject_into_urllib3()
 
     def generate_random_hex_key(length):
-        return os.urandom(length / 2).encode("hex")
+        return os.urandom(length // 2).encode("hex")
 
     settings = config.registry.settings
     import_settings_from_environment_variables(settings)
